@@ -1,0 +1,108 @@
+
+Trabajo Práctico #1 Unidad 2
+
+IFTS18
+Alumno: Anderson Ocaña
+------------
+
+
+CREATE DATABASE tp1db character SET UTF8mb4 collate utf8mb4_general_ci;
+
+USE tp1db;
+
+1. 
+
+Creando Tabla 'categoria':
+→
+	create table categoria (idCategoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY, descripcion VARCHAR(50));
+
+
+
+Creando Tabla 'productos'
+→	create table productos (idProducto INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50),precio DECIMAL(10,2), idCategoria INT);
+
+
+
+Data adicional
+
+	Para observar las tablas creadas 
+
+	→ 	 explain productos; explain categoria;
+
+
+
+
+	Para unir las tablas con el FK requerido
+
+		Se le inserta un constraint 'FK_CAT' con el objeto de poder usarlo en caso de modificación y retrieve sencillo.
+
+	Crear Foreign Key
+	→	alter table productos add constraint FK_CAT foreign key (idCategoria) references categoria (idCategoria);
+
+
+
+Creando contenido en las:
+
+Tabla “categoria”
+
+insert into categoria (idCategoria,descripcion) 
+values
+(1, 'Smartphones'), 
+(2,'Computadoras de escritorio'), 
+(3,'Notebooks'), 
+(4,'Otros');
+
+
+
+	SELECT * FROM categoria;
+
+
+Tabla “productos”
+
+insert into productos (idProducto, nombre, precio,idCategoria) 
+Values
+(1,'PC de escritorio 1',35210,2),
+(2,'HACER Not 20',22500,3),
+(3,'Nexus 6P',20000,1), 
+(4,'Cama individual',5000,4);
+
+	SELECT * FROM producto;
+
+
+
+4. Obtener los que tengan categoría 
+
+SELECT * from productos inner JOIN categoria on categoria.idCategoria=productos.idCategoria where descripcion='Smartphones';
+	
+
+
+
+5. Obtener precio mayor a 10000:
+
+	SELECT * FROM productos WHERE precio >10000;
+
+6. Obtener precio menor a 10000:
+
+	SELECT * FROM productos WHERE precio <10000;
+
+7. Obtener todos los que contengan la palabra ‘PC’:
+
+	SELECT * FROM productos WHERE nombre LIKE '%PC%';
+
+
+8. Obtener el producto que se llame ‘Nexus 6P’:
+
+SELECT * from productos where nombre='Nexus 6P';
+
+
+9. Obtener categoría que contiene ‘Comp’ en su descripción:
+
+	SELECT idCategoria from categoria WHERE descripcion LIKE '%Comp%';
+
+
+10. Obtener productos con precio <18000 y categoría =’Otros’:
+
+	SELECT idProducto,nombre from categoria inner JOIN productos on categoria.idCategoria=productos.idCategoria WHERE descripcion='Otros' AND productos.precio<18000;
+
+
+
