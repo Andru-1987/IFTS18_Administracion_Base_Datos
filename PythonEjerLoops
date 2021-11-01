@@ -1,0 +1,368 @@
+#Ejercicios propuestos Python.
+
+#Ejercicio 1 Escribir un programa que pida al usuario una palabra y
+#la muestre por pantalla 10 veces.
+
+def bucle10():
+	i=0
+	nombre=input('Ingrese su nombre \n')
+	
+	while i<10:
+		print(nombre,i)
+		i+=1
+
+bucle10()
+
+
+#Escribir un programa que pregunte el nombre del usuario en la consola y un
+#número entero e imprima por pantalla en líneas distintas el nombre del
+#usuario tantas veces como el número introducido.
+
+
+nombre=input('Ingrese su nombre')
+n=int(input('Ingrese el valor a repetir'))
+
+def bucleN(n,nombre):
+	i=0
+	while i<n:
+		print(nombre,i)
+		i+=1
+
+bucleN(n,nombre)
+
+
+
+
+#Escribir un programa que pida al usuario un número entero positivo y muestre
+#por pantalla todos los números impares desde 1 hasta ese número separados
+#por comas.
+
+
+def numerosPares():
+	
+	numero=int(input('Ingresa numero entero y positivo mayor a 0\n'))
+
+#acumulador de string, para imprimir al final
+	sumadorString=''
+#loop para obtener los impares tales que el modulo en 2 sea diferente a 0
+	i=0
+
+	while (i<numero):
+		if i%2!=0:
+			sumadorString+=str(i)+','
+		i+=1
+#uso slicing string para retirar el último ',' 
+	print(sumadorString[0:-1])
+
+numerosPares()
+
+
+
+
+
+#Leer números enteros positivos de teclado, hasta que el usuario ingrese el 0. Informar cuál fue el mayor número ingresado.
+
+
+def enterosPositivos():
+
+
+	n=input('Ingrese numero positivo y entero \n Al ingresar \"0\" el ciclo terminará.\n')
+	
+	maximo=int(n)
+
+
+	if int(n)==0:
+		print('Gracias por usar el Juego\n Valor maximo: {}'.format(n))
+
+# loop para que sólo termine cuando se presiona el numero 0
+
+	while int(n)!=0:
+		# Se setea el nuevo maximo
+
+		n=input('Ingrese nuevo numero\n')
+
+		if int(n)>maximo:
+			maximo=int(n)
+
+	print('Valor máximo: {}'.format(maximo))
+
+
+# Ejecuto la funcion
+
+enterosPositivos()
+
+
+
+#Leer un número entero positivo desde teclado e imprimir la suma de los dígitos que lo componen
+
+
+
+def descomponerN():
+	n=input('Ingrese numero entero positivo.\n A este número se le sumará sus cifras\n')
+	suma=0
+	number=int(n)
+
+	while number>0:
+		suma+=number%10
+		number= number//10
+	
+
+
+	print('Valor de los dígitos del numero {} es de : {}'.format(n,suma))
+
+descomponerN()
+
+
+
+#Solicitar al usuario que ingrese números enteros positivos y, por cada uno,
+#imprimir la suma de los dígitos que lo componen. La condición de corte es
+#que se ingrese el número -1. Al finalizar, mostrar cuántos de los números
+#ingresados por el usuario fueron números pares.
+
+
+#Modifico un poco la funcion anterior. Para adaptar a este ejercicio
+
+def descomponerN(numeroIngresado):
+
+	suma=0
+	number=int(numeroIngresado)
+
+	while number>0:
+		suma+=number%10
+		number= number//10
+	print('Valor de los dígitos del numero {} es de : {}'.format(numeroIngresado,suma))
+
+def imprimirSerieN():
+
+	numeroIngresado=input('Ingrese primer numero: \n Recuerde que con \"-1\" usted termina el programa. ')
+	contadorNumerosIngresados=0
+	descomponerN(numeroIngresado)
+
+	while int(numeroIngresado)!=-1:
+		if int(numeroIngresado)%2==0:
+			contadorNumerosIngresados+=1
+
+		numeroIngresado=input('Ingrese el nuevo número: ')
+
+		# Utilizo la funcion previamente armada que descompone el numero de n-digitos y los suma
+		descomponerN(numeroIngresado)
+
+	if int(numeroIngresado)==-1:
+		print('Gracias por usar el programa\n Cantidad de números par ingresados: {}'.format(contadorNumerosIngresados))
+
+
+imprimirSerieN()
+
+
+
+#Mostrar un menú con tres opciones: 1- comenzar programa, 2- imprimir
+#listado, 3-finalizar programa. A continuación, el usuario debe poder
+#seleccionar una opción (1, 2 ó 3). Si elige una opción incorrecta,
+#informarle del error. El menú se debe volver a mostrar luego de ejecutada
+#cada opción, permitiendo volver a elegir. Si elige las opciones 1 ó 2 se
+#imprimirá un texto. Si elige la opción 3, se interrumpirá la impresión del
+#menú y el programa finalizará.
+
+
+
+
+
+
+def menuDisplay():
+	print('Gracias por usar el siguiente programa.')
+	opcion=input('Ingrese:\n \"1\" para comenzar programa\n \"2\" para imprimir listado\n \"3\" para finalizar programa \n')
+	
+	while opcion!='3'  :
+
+		if opcion=='1':
+			print('Eligió la opcion {}, el programa comienza'.format(opcion))
+		elif opcion=='2':
+			print('Eligió la opcion {}, se imprime el listado'.format(opcion))
+		elif opcion=='3':
+			break
+		else:
+			print('{} No es una opcion válida'.format(opcion))
+
+		opcion=input('Ingrese:\n \"1\" para comenzar programa\n \"2\" para imprimir listado\n \"3\" para finalizar programa \n')
+
+menuDisplay()
+
+
+
+#Crear un programa que solicite el ingreso de números enteros positivos,
+#hasta que el usuario ingrese el 0. Por cada número, informar cuántos
+#dígitos pares y cuántos impares tiene. Al finalizar, informar la cantidad
+#de dígitos pares y de dígitos impares leídos en total.
+
+
+def numAnalisis(number):
+
+	contarPar=0
+	contarImpar=0
+
+	# Esto es sólo por si alguno me envía un numero negativo  >_<
+	
+	number=number.replace('-','')
+
+	#Acá por si acaso alguno mánda un 0 al inicio
+
+	if number[0]=='0':
+		number=number.replace('0','',1)
+
+	for i in number:
+		if int(i)%2==0:
+			print('{} es par'.format(i))
+			contarPar+=1
+		else:
+			print('{} es impar'.format(i))
+			contarImpar+=1
+# Estos son los valores que nos entrega la funcion
+
+	print(contarPar,contarImpar)
+	return (contarPar,contarImpar)
+
+
+
+
+
+def mainFunction():
+	print('El siguiente programa desglosa el número ingresado de tal manera que analiza los digitos pares e impares\n Ingrese 0 para finalizar y desplegar la data finalizada.\n Gracias por usar el programa\n')
+	number=input('Ingrese el número de análisis\n')
+	#Seteo los contadores a cero en una sola fila tambien se puede hacer así:
+	#contarPar=0
+	#contarImpar=0
+
+	contarParTotal,contarImparTotal=0,0
+
+	while number!='0':
+		contarPar,contarImpar=numAnalisis(number)
+		contarParTotal+=contarPar
+		contarImparTotal+=contarImpar
+		number=input('Ingrese el número de análisis\n')
+
+	print('Cantidad total de numeros pares: {} \n Cantidad total de numeros impares: {}'.format(contarParTotal,contarImparTotal))
+	print('Gracias por usar el programa!')
+
+
+mainFunction()
+
+
+
+
+#Escribir un programa que almacene la cadena de caracteres contraseña en una
+#variable, pregunte al usuario por la contraseña hasta que introduzca la
+#contraseña correcta. (adicional: cantidad de intentos incorrectos)
+
+
+passwordCorrecta='pass_correcta'
+password=input('Ingrese su Password\n')
+cantidadPermitidos=3
+
+while cantidadPermitidos>0:
+	
+	if passwordCorrecta==password:
+		print('Password Valida\nAcceso permitido')
+		break
+
+	else:
+		print('{} no es la contraseña correcta\nCantidad de ingresos restantes: {}'.format(password,cantidadPermitidos))
+		password=input('Ingrese su Password\n')
+		if cantidadPermitidos==1:
+			print('Las Passwords ingresadas no eran validas.\nAcceso denegado')
+
+
+	cantidadPermitidos-=1
+
+
+
+#Escribir un programa que pida al usuario un número entero y muestre por pantalla si es un número primo o no. 
+
+
+numero=int(input('Ingrese numero a verificar si es primo\n Recuerde que 0 y 1 no son considerados numeros primos\n'))
+primo=False
+
+for i in range(2,int(numero/2 +1)):
+	
+	if numero%i==0:
+		primo=False
+		break
+	else:
+		primo=True
+
+if primo:
+	print('Numero {} es primo'.format(numero))
+else:
+	print('{} no es primo'.format(numero))
+
+
+#Escribir un programa que muestre el eco de todo lo que el usuario introduzca
+#hasta que el usuario escriba “salir” que terminará
+
+print('Para salir del programa escribir: \"salir\"')
+ingreso=input('Ingresa lo que te dirá el Eco\n')
+toCheck=ingreso.lower()
+
+while toCheck!='salir':
+	print('El eco dice: >>>> {} <<<<'.format(ingreso))
+	ingreso=input('Vamos! Otra vez!\n')
+	toCheck=ingreso.lower()
+
+
+
+
+#Escribir un programa que permita al usuario ingresar un conjunto de notas,
+#preguntando a cada paso si desea ingresar mas notas. Luego imprimir el
+#promedio de notas.
+
+
+
+print('Ingrese lista de notas. Al finalizar le desplegará el promedio de las notas ingresadas')
+
+
+cantidadNotas=1
+
+notas=int(input('Ingrese siguiente nota\n'))
+desearNotas=input('Desea ingresar una nueva nota?\n Use \"si\"" para ingresar otra nota\n Use \"no\" para terminar y mostrar el promedio de notas\n')
+suma=notas
+
+while desearNotas!='no':
+
+	cantidadNotas+=1
+	
+	print(suma)
+
+	notas=int(input('Ingrese siguiente nota\n'))
+	desearNotas=input('Desea ingresar una nueva nota?\n Use \"si\"" para ingresar otra nota\n Use \"no\" para terminar y mostrar el promedio de notas\n')
+	suma+=notas
+
+promedioNotas=round(float(suma/cantidadNotas),2)
+
+print('El promedio de notas es: {}\nCantidad de notas: {}'.format(promedioNotas,cantidadNotas))
+
+
+
+#Dado un número entero positivo N, debe imprimir un triángulo palíndromo de
+#tamaño N. Ejemplo. Si N=5, entonces debe mostrar los siguiente:
+
+# Declaro el valor de los digitos a sumar como strings
+
+suma=''
+# Declaro lo que voy a pedir que ingrese
+
+print('Ingrese el valor del alto del triangulo')
+num=int(input(''))
+
+#declaro los dígitos que componen el numero que ingrese
+
+digitos=len(str(num))
+
+# Loop y espejado del número
+
+for i in range(1,num+1):
+
+	suma+=str(i)
+	#con [::-1] hago que sea una inversion de los strings sumados
+	#con esto [digitos:] remuevo los digitos correspondientes al valor ingresado
+	print(suma+suma[::-1][digitos:])
+
+
